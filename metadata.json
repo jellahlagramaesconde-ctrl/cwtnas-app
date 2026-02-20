@@ -1,0 +1,8 @@
+{
+  "name": "Proj 1",
+  "description": "project system for our subject project management 2",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
