@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { LogOut, LayoutDashboard, FileWarning, Truck, Database, User, Recycle, Map, Menu, X, Trash2, AlertTriangle, Calendar, ShieldCheck, Sparkles } from 'lucide-react';
+import { LogOut, LayoutDashboard, FileWarning, Truck, Database, User, Recycle, Map, Menu, X, Trash2, AlertTriangle, Calendar, ShieldCheck } from 'lucide-react';
 import { UserRole } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -29,6 +28,9 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  // Refined Pastel Green Strategy for Links
+  // Inactive: Deep Sage (#4F7942)
+  // Active: Action Green (#77DD77) background with White text
   const desktopLinkClass = (path: string) => `
     flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300
     ${isActive(path) 
@@ -47,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
     switch(userRole) {
       case UserRole.ADMIN: return '/admin/dashboard';
       case UserRole.DRIVER: return '/driver/dashboard';
-      case UserRole.RESIDENT: default: return '/resident/dashboard';
+      case UserRole.RESIDENT: default: return '/resident';
     }
   };
 
@@ -59,6 +61,7 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
     }
   };
 
+  // Role Specific Styling
   const getRoleBadgeStyle = () => {
     switch(userRole) {
       case UserRole.ADMIN: 
@@ -113,9 +116,6 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
             <Link to="/resident/schedule" className={linkClass('/resident/schedule')}>
               <Calendar size={isMobile ? 20 : 18} /> <span className={!isMobile ? "hidden lg:inline" : ""}>Schedule</span>
             </Link>
-            <Link to="/resident/assistant" className={linkClass('/resident/assistant')}>
-              <Sparkles size={isMobile ? 20 : 18} /> <span className={!isMobile ? "hidden lg:inline" : ""}>Assistant</span>
-            </Link>
             <Link to="/resident/tracking" className={linkClass('/resident/tracking')}>
               <Map size={isMobile ? 20 : 18} /> <span className={!isMobile ? "hidden lg:inline" : ""}>Live Map</span>
             </Link>
@@ -139,9 +139,6 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
             <Link to="/admin/dashboard" className={linkClass('/admin/dashboard')}>
               <LayoutDashboard size={isMobile ? 20 : 18} /> <span className={!isMobile ? "hidden lg:inline" : ""}>Dash</span>
             </Link>
-            <Link to="/admin/assistant" className={linkClass('/admin/assistant')}>
-              <Sparkles size={isMobile ? 20 : 18} /> <span className={!isMobile ? "hidden lg:inline" : ""}>AI Chat</span>
-            </Link>
             <Link to="/admin/waste" className={linkClass('/admin/waste')}>
               <Truck size={isMobile ? 20 : 18} /> <span className={!isMobile ? "hidden lg:inline" : ""}>Track</span>
             </Link>
@@ -162,8 +159,11 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
 
   return (
     <>
+      {/* Top Navigation Bar - Floating & Rounded */}
       <div className="fixed top-6 left-6 right-6 z-50">
         <nav className="glass-panel max-w-7xl mx-auto px-6 h-20 flex items-center justify-between rounded-3xl shadow-soft">
+            
+            {/* Logo Section */}
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate(getHomeLink())}>
                <div className="flex flex-col">
                   <span className="font-extrabold text-2xl leading-none text-[#4F7942] tracking-tight">CWTNAS</span>
@@ -171,11 +171,14 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
                </div>
             </div>
 
+            {/* Desktop Links */}
             <div className="hidden md:flex items-center gap-2">
               {renderNavLinks(false)}
             </div>
 
+            {/* User Profile & Mobile Menu Toggle */}
             <div className="flex items-center gap-3">
+               
                <button 
                   onClick={() => setShowSettingsModal(true)}
                   className={`hidden md:flex items-center gap-2 px-4 py-2 bg-white ${roleStyle.hover} text-[#4F7942] rounded-full transition-all border ${roleStyle.border} shadow-sm`}
@@ -196,8 +199,10 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
         </nav>
       </div>
 
+      {/* Spacer for fixed navbar */}
       <div className="h-32"></div>
 
+      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-40 md:hidden bg-[#4F7942]/20 backdrop-blur-md">
            <div className="absolute top-28 left-6 right-6 bg-white rounded-3xl shadow-2xl p-6 flex flex-col animate-slide-up">
@@ -228,6 +233,7 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
         </div>
       )}
 
+      {/* Settings Modal */}
       {showSettingsModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm p-4 animate-fade-in">
            <div className="glass-panel bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden p-6 relative">
@@ -260,6 +266,7 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
         </div>
       )}
 
+      {/* Logout Confirmation */}
       {showLogoutConfirm && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/20 backdrop-blur-sm p-4 animate-fade-in">
           <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
@@ -273,6 +280,7 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onLogout }) => {
         </div>
       )}
       
+      {/* Delete Confirmation */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 z-[70] flex items-center justify-center bg-red-900/10 backdrop-blur-md p-4 animate-fade-in">
           <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl border-t-8 border-red-500">
