@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -16,7 +15,6 @@ import WasteTracking from './pages/WasteTracking';
 import InfrastructureReports from './pages/InfrastructureReports';
 import Records from './pages/Records';
 import FirebaseSetup from './pages/FirebaseSetup';
-import CommunityAssistant from './pages/CommunityAssistant';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
 import { UserRole } from './types';
@@ -79,7 +77,6 @@ const AppRoutes: React.FC = () => {
               <Route path="schedule" element={<ResidentSchedule />} />
               <Route path="bins" element={<SmartBinMonitor />} />
               <Route path="tracking" element={<WasteTracking />} />
-              <Route path="assistant" element={<CommunityAssistant />} />
               <Route path="*" element={<Navigate to="dashboard" replace />} />
             </Routes>
           ) : <Navigate to="/login" replace />} 
@@ -104,7 +101,6 @@ const AppRoutes: React.FC = () => {
               <Route path="infrastructure" element={<InfrastructureReports />} />
               <Route path="records" element={<Records />} />
               <Route path="bins" element={<SmartBinMonitor />} />
-              <Route path="assistant" element={<CommunityAssistant />} />
               <Route path="*" element={<Navigate to="dashboard" replace />} />
             </Routes>
           ) : <Navigate to="/login" replace />} 
@@ -127,4 +123,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-

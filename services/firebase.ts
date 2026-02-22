@@ -58,15 +58,3 @@ export const resetFirebaseConfig = () => {
 
 export { app, auth, storage, db, firestore };
 export default firebase;
-```
-
-Now update your `.env.local` to also include the two new variables I added:
-```
-VITE_API_KEY=AIzaSyAJ9RdhwFIUwXJ1kMrUg_ge30xaJNmD988
-VITE_AUTH_DOMAIN=cwtnas-app-5b35b.firebaseapp.com
-VITE_DATABASE_URL=https://cwtnas-app-5b35b-default-rtdb.asia-southeast1.firebasedatabase.app
-VITE_PROJECT_ID=cwtnas-app-5b35b
-VITE_STORAGE_BUCKET=cwtnas-app-5b35b.firebasestorage.app
-VITE_MESSAGING_SENDER_ID=245365354819
-VITE_APP_ID=1:245365354819:web:dff259251b5908740d3ff6
-VITE_MEASUREMENT_ID=G-1DRV495J35
