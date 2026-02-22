@@ -22,9 +22,10 @@ let db: firebase.database.Database;
 let firestore: firebase.firestore.Firestore;
 
 export const isFirebaseConfigured = () => {
-  return !!firebaseConfig.apiKey && 
-         firebaseConfig.apiKey !== "PASTE_YOUR_API_KEY_HERE" && 
-         !firebaseConfig.apiKey.includes("YOUR_API_KEY");
+  return !!(
+    import.meta.env.VITE_API_KEY &&
+    import.meta.env.VITE_PROJECT_ID
+  );
 };
 
 try {
