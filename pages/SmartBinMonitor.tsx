@@ -126,31 +126,31 @@ const SmartBinMonitor: React.FC = () => {
 
   const binGuidelines = [
     {
-      type: 'Biodegradable',
-      duration: '2 Days',
-      reason: 'Prevent odors, mold, and maggots.',
+      type: 'Below 50% Full',
+      duration: 'Safe Level',
+      reason: 'Bin has plenty of capacity. No immediate collection needed.',
       color: 'text-green-600',
       bgColor: 'bg-green-50/50',
       borderColor: 'border-green-200',
-      icon: Leaf
-    },
-    {
-      type: 'Recyclable',
-      duration: '14 Days',
-      reason: 'Only if items are rinsed and dry.',
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50/50',
-      borderColor: 'border-blue-200',
       icon: Recycle
     },
     {
-      type: 'Non-Biodegradable',
-      duration: '3 Days',
-      reason: 'Hygiene and space management.',
-      color: 'text-gray-600',
-      bgColor: 'bg-gray-50/50',
-      borderColor: 'border-gray-200',
-      icon: Ban
+      type: '50% - 85% Full',
+      duration: 'Monitor',
+      reason: 'Plan for collection soon to prevent sudden overflow.',
+      color: 'text-amber-600',
+      bgColor: 'bg-amber-50/50',
+      borderColor: 'border-amber-200',
+      icon: Clock
+    },
+    {
+      type: 'Above 85% Full',
+      duration: 'Immediate Action',
+      reason: 'Schedule collection now to avoid overflow, odor, and hygiene issues.',
+      color: 'text-red-600',
+      bgColor: 'bg-red-50/50',
+      borderColor: 'border-red-200',
+      icon: AlertTriangle
     }
   ];
 
@@ -160,10 +160,10 @@ const SmartBinMonitor: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                Smart Segregation Bins
+                Smart Monitoring Bin
                 {isLive ? (
                    <span className="flex items-center gap-1 text-xs font-normal bg-green-100 text-green-700 px-2 py-1 rounded-full animate-pulse">
-                      <Wifi size={12} /> Live Sensors
+                      <Wifi size={12} /> Live Sensor
                    </span>
                 ) : error ? (
                    <span className="flex items-center gap-1 text-xs font-normal bg-red-100 text-red-700 px-2 py-1 rounded-full">
@@ -175,7 +175,7 @@ const SmartBinMonitor: React.FC = () => {
                    </span>
                 )}
             </h1>
-            <p className="text-gray-500 text-sm">Real-time monitoring of community waste levels</p>
+            <p className="text-gray-500 text-sm">Real-time bin level monitoring using an ultrasonic sensor</p>
         </div>
         
         <div className="flex gap-2">
@@ -231,7 +231,7 @@ const SmartBinMonitor: React.FC = () => {
                   <WifiOff size={32} />
               </div>
               <h3 className="text-xl font-bold text-gray-700">No Bin Data Detected</h3>
-              <p className="text-gray-500 mt-2">Connect your Arduino MKR 1000 to Firebase Realtime Database to see live data.</p>
+              <p className="text-gray-500 mt-2">Connect your Arduino (with ultrasonic sensor) to Firebase Realtime Database to see the current bin fill level.</p>
           </div>
       ) : (
           <div className="grid md:grid-cols-3 gap-8">
@@ -328,7 +328,7 @@ const SmartBinMonitor: React.FC = () => {
       <div className="bg-white/60 backdrop-blur-lg border border-white/60 rounded-2xl p-6 shadow-sm">
         <div className="flex items-center gap-2 mb-6">
            <Info className="text-emerald-600" />
-           <h2 className="text-xl font-bold text-gray-800">Waste Retention Rules (Alert Triggers)</h2>
+           <h2 className="text-xl font-bold text-gray-800">Smart Bin Fill-Level Guide</h2>
         </div>
         
         <div className="grid md:grid-cols-3 gap-6">
@@ -345,7 +345,7 @@ const SmartBinMonitor: React.FC = () => {
                    <div className="flex items-start gap-2">
                       <Clock size={16} className={`mt-0.5 ${guide.color} opacity-80`} />
                       <div>
-                         <p className="text-xs font-bold uppercase text-gray-500">Max Duration</p>
+                         <p className="text-xs font-bold uppercase text-gray-500">Recommended Action</p>
                          <p className="font-bold text-gray-800">{guide.duration}</p>
                       </div>
                    </div>
